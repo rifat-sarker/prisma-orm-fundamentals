@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bunx tsx watch src/update.ts"
+    "dev": "bunx tsx watch src/delete.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
