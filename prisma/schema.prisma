@@ -8,14 +8,16 @@ datasource db {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  published Boolean  @default(false)
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int            @id @default(autoincrement())
+  title        String
+  content      String
+  published    Boolean        @default(false)
+  authorId     Int
+  author       User           @relation(fields: [authorId], references: [id])
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  PostCategory PostCategory[] // many to many relation
+
 
   @@map("posts")
 }
@@ -24,7 +26,7 @@ model User {
   id       Int      @id @default(autoincrement())
   username String   @unique
   email    String
-  role     UserRole
+  role     UserRole @default(user)
   profile  Profile? //one to one relation
   Post     Post[] // one to many relation
 
@@ -41,10 +43,21 @@ model Profile {
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String
+  id           Int            @id @default(autoincrement())
+  name         String
+  PostCategory PostCategory[] // many to many relation
 
   @@map("categories")
+}
+
+model PostCategory {
+  postId     Int
+  post       Post     @relation(fields: [postId], references: [id])
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([postId, categoryId])  // composite key - with two of more primary key from different model
+  @@map("post_category")
 }
 
 enum UserRole {
@@ -54,9 +67,11 @@ enum UserRole {
 
 /**
  * map --> we can change the table name ex: User to users by using map
- relation
- --> do relation where foreign key is available ex: Profile
- steps: 
- 1. variable name, 2. Model name(relation model), 3.@relation-fields-references
- ex: user   User    @relation(fields: [userId], references: [id])
+ * relation
+ * --> do relation where foreign key is available ex: Profile
+ * steps:
+ * 1. variable name, 2. Model name(relation model), 3.@relation-fields-references
+ * ex: user   User    @relation(fields: [userId], references: [id])
+ *
+ * Once I compelete the model I have to migrate it by this command- [ npx prisma migrate dev ] 
  */
