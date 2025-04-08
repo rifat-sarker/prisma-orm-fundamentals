@@ -12,7 +12,8 @@ model Post {
   title     String
   content   String
   published Boolean  @default(false)
-  authorId  Int?
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -24,6 +25,8 @@ model User {
   username String   @unique
   email    String
   role     UserRole
+  profile  Profile? //one to one relation
+  Post     Post[] // one to many relation
 
   @@map("users")
 }
@@ -31,7 +34,8 @@ model User {
 model Profile {
   id     Int     @id @default(autoincrement())
   bio    String?
-  userId Int
+  userId Int     @unique
+  user   User    @relation(fields: [userId], references: [id])
 
   @@map("profiles")
 }
@@ -50,4 +54,9 @@ enum UserRole {
 
 /**
  * map --> we can change the table name ex: User to users by using map
+ relation
+ --> do relation where foreign key is available ex: Profile
+ steps: 
+ 1. variable name, 2. Model name(relation model), 3.@relation-fields-references
+ ex: user   User    @relation(fields: [userId], references: [id])
  */
