@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bunx tsx watch src/pagination-sorting.ts"
+    "dev": "bunx tsx watch src/create.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
