@@ -34,14 +34,17 @@ const main = async () => {
       content: "content....",
       authorId: 1,
       PostCategory: {
-        create: {
-          categoryId: 12
-          // category: {
-          //   connect: {
-          //     id: 12,
-          //   },
-          // },
-        },
+        create: [
+          {
+            categoryId: 2
+          },
+          {
+            categoryId: 4
+          },
+          {
+            categoryId: 9
+          },
+        ],
       },
     },
     include: {

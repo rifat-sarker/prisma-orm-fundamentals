@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bunx tsx watch src/create.ts"
+    "dev": "bunx tsx watch src/relational-queries.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
