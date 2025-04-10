@@ -16,7 +16,7 @@ model Post {
   author       User           @relation(fields: [authorId], references: [id])
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  PostCategory PostCategory[] // many to many relation
+  postCategory PostCategory[] // many to many relation
 
 
   @@map("posts")
@@ -28,7 +28,7 @@ model User {
   email    String
   role     UserRole @default(user)
   profile  Profile? //one to one relation
-  Post     Post[] // one to many relation
+  post     Post[] // one to many relation
 
   @@map("users")
 }
@@ -45,7 +45,7 @@ model Profile {
 model Category {
   id           Int            @id @default(autoincrement())
   name         String
-  PostCategory PostCategory[] // many to many relation
+  postCategory PostCategory[] // many to many relation
 
   @@map("categories")
 }
