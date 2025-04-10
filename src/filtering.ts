@@ -63,12 +63,33 @@ const filtering = async () => {
   const endsWith = await prisma.user.findMany({
     where: {
         email: {
-            endsWith: ".com",
+            equals: "rifatswd@gmail.com", // startsWith, endsWith,contains
             // contains: "gmail"
         }
     }
   })
-  console.log(endsWith);
+
+
+//   see in dept every data
+
+  const inDepthData = await prisma.user.findMany({
+    where: {
+        id: 1
+    },
+    include: {
+        post: {
+            include: {
+                postCategory: {
+                    include: {
+                        category:true
+                    }
+                }
+            }
+        }
+    }
+  })
+
+  console.dir(inDepthData,{depth: Infinity});
 };
 
 filtering();
