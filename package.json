@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "dev": "bunx tsx watch src/logging.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
