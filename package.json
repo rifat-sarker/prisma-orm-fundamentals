@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bunx tsx watch src/groupBy.ts"
+    "dev": "bunx tsx watch src/batch.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
