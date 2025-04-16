@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bunx tsx watch src/batch.ts"
+    "dev": "bunx tsx watch src/raw-query.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
