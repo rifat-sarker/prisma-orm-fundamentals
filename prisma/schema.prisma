@@ -13,11 +13,10 @@ model Post {
   content      String
   published    Boolean        @default(false)
   authorId     Int
-  author       User           @relation(fields: [authorId], references: [id])
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  postCategory PostCategory[] // many to many relation
-
+  postCategory PostCategory[]
+  author       User           @relation(fields: [authorId], references: [id])
 
   @@map("posts")
 }
@@ -26,10 +25,10 @@ model User {
   id       Int      @id @default(autoincrement())
   username String   @unique
   email    String
-  age     Int @default(0)
   role     UserRole @default(user)
-  profile  Profile? //one to one relation
-  post     Post[] // one to many relation
+  age      Int      @default(0)
+  post     Post[]
+  profile  Profile?
 
   @@map("users")
 }
@@ -46,18 +45,18 @@ model Profile {
 model Category {
   id           Int            @id @default(autoincrement())
   name         String
-  postCategory PostCategory[] // many to many relation
+  postCategory PostCategory[]
 
   @@map("categories")
 }
 
 model PostCategory {
   postId     Int
-  post       Post     @relation(fields: [postId], references: [id])
   categoryId Int
   category   Category @relation(fields: [categoryId], references: [id])
+  post       Post     @relation(fields: [postId], references: [id])
 
-  @@id([postId, categoryId])  // composite key - with two of more primary key from different model
+  @@id([postId, categoryId])
   @@map("post_category")
 }
 
@@ -65,14 +64,3 @@ enum UserRole {
   user
   admin
 }
-
-/**
- * map --> we can change the table name ex: User to users by using map
- * relation
- * --> do relation where foreign key is available ex: Profile
- * steps:
- * 1. variable name, 2. Model name(relation model), 3.@relation-fields-references
- * ex: user   User    @relation(fields: [userId], references: [id])
- *
- * Once I compelete the model I have to migrate it by this command- [ npx prisma migrate dev ] 
- */
